@@ -1,10 +1,10 @@
 --[[
     Title: Ultima Online Fishing Macro
-    Version: 1.0.1
+    Version: 1.0.2
     Last Updated: June 7, 2025
     Description: Automates fishing in Ultima Online by using an equipped fishing pole (Graphic ID 0x0DC0)
                  and targeting the last selected water tile. Equips a new pole from inventory if needed
-                 and handles pole breaks. When fish are not biting, moves the boat forward for 5 seconds.
+                 and handles pole breaks. When fish aren't biting, moves the boat forward for 5 seconds.
                  Provides overhead messages (visible only to the player) for feedback.
     Usage:
         - Place fishing poles (Graphic ID 0x0DC0) in your inventory.
@@ -18,6 +18,7 @@
         - Adjust FISHING_DELAY for server-specific timing (e.g., 7000-10000 ms).
         - Manual water targeting required initially; automation can be added.
         - Boat movement uses "forward" and "stop" commands; ensure you're on a boat.
+        - Journal message "The fish don't seem to be biting here." triggers boat movement; update if your server uses a different message.
         - Share issues or contributions on GitHub.
 --]]
 
@@ -85,10 +86,10 @@ end
 -- Returns: True if a failure is detected, false otherwise.
 function CheckFishingStatus()
     local failureMessages = {
-        "your fishing pole breaks",     -- Pole has broken
-        "you fail to catch anything",   -- No fish in the area
-        "that is too far away",         -- Target out of range
-        "you cannot see that"           -- Target not visible
+        "your fishing pole breaks",             -- Pole has broken
+        "The fish don't seem to be biting here.", -- No fish in the area
+        "that is too far away",                 -- Target out of range
+        "you cannot see that"                   -- Target not visible
     }
     for _, msg in ipairs(failureMessages) do
         if Journal.Contains(msg) then
@@ -148,7 +149,7 @@ function Main()
                 end
                 Messages.Overhead("Equipped new fishing pole.", MESSAGE_HUE, Player.Serial)
                 needNewTarget = true -- Prompt for new target after equipping new pole
-            elseif Journal.Contains("you fail to catch anything") then
+            elseif Journal.Contains("The fish don't seem to be biting here.") then
                 Messages.Overhead("No fish here, moving boat!", MESSAGE_HUE, Player.Serial)
                 Player.Say("forward")    -- Say "forward" to move the boat
                 Pause(BOAT_MOVE_DELAY)  -- Wait 5 seconds for boat to move
@@ -156,7 +157,7 @@ function Main()
                 needNewTarget = true    -- Prompt for new water target
                 Journal.Clear()
             else
-                Messages.Overhead("Fishing error, Retry!", MESSAGE_HUE, Player.Serial)
+                Messages.Overhead("Fishing error, retrying...", MESSAGE_HUE, Player.Serial)
                 Journal.Clear()
             end
         end
