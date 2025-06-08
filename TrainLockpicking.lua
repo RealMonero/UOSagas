@@ -1,6 +1,6 @@
 --[[
   Title: Ultima Online Lockpicking Training Script (Paragon Chest)
-  Version: 1.0.0
+  Version: 1.0.2
   Last Updated: June 7, 2025
   Description: Automates lockpicking a paragon chest in UO Sagas using a lockpick (Graphic ID 0x14FD) and the
                custom lockpicking gump (ID 313384064). Closes the gump at each attempt, finds a lockpick and
@@ -9,7 +9,7 @@
   Usage:
     - Place lockpicks (Graphic ID 0x14FD) in your inventory.
     - Stand near a paragon chest (Graphic ID 0x0E7C or adjust as needed).
-    - Run the script in a UO Sagas client
+    - Run the script in a UO Sagas client (Razor Enhanced variant).
     - The script will lockpick the chest until lockpicks are depleted.
   Requirements: UO client with support for Items.FindByType, Player.UseObject, Player.Say,
                 Targeting.WaitForTarget, Targeting.Target, Gumps.WaitForGump, Gumps.PressButton,
@@ -20,11 +20,13 @@
     - Timing (1000ms for gump waits and targeting) matches confirmed sequence; adjust if needed.
     - No key or relocking required for paragon chests.
     - Share issues or contributions on GitHub.
+    - 0 to 50 skill = Iron
+    - 50 to 80? skill = Shadow
 --]]
 
 -- Configuration
 local LOCKPICK_ID = 0x14FD      -- Graphic ID for lockpicks
-local CHEST_ID = 0x9FF8       -- Graphic ID for paragon chest (adjust if needed)
+local CHEST_ID = 0x9FF9       -- Shadow=0x9FF9 Iron=0x9FF8 Graphic ID for paragon chest (adjust if needed)
 local GUMP_ID = 313384064      -- Gump ID for UO Sagas lockpicking
 local GUMP_CLOSE_BUTTON = 0    -- Button ID to close gump
 local GUMP_LOCKPICK_BUTTON = 2 -- Button ID to attempt lockpicking
