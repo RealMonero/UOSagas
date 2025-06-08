@@ -26,7 +26,7 @@
 
 -- Configuration
 local LOCKPICK_ID = 0x14FD      -- Graphic ID for lockpicks
-local CHEST_ID = 0x9FF9       -- Shadow=0x9FF9 Iron=0x9FF8 Graphic ID for paragon chest (adjust if needed)
+local CHEST_ID = 0x9FF8       -- Bronze/Copper=0x9FF8 Shadow=0x9FF9 Iron=0x9FF8 Graphic ID for paragon chest (adjust if needed)
 local GUMP_ID = 313384064      -- Gump ID for UO Sagas lockpicking
 local GUMP_CLOSE_BUTTON = 0    -- Button ID to close gump
 local GUMP_LOCKPICK_BUTTON = 2 -- Button ID to attempt lockpicking
